@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>FcpLib &ndash;hyperocha&ndash; Trac</title>
+	<style type="text/css">
+		@import url("schmucklos/schmucklos.css");
+	</style>
+</head>
+<body>
+	<div id="content" class="wiki">
+		<div class="wikipage searchable">
+			<h1 id="ThejHyperochafcplibrary">The jHyperocha fcp library</h1>
+			<h2 id="Whatisthis">What is this?</h2>
+			<p>jHyperocha is a FCP library, that eases the fcp handling in a signifikant manner AND still allows full access
+to everything fcp related. 
+</p>
+<p>
+start the lib-jar like a java app shows you two samples:
+</p>
+<ul>
+<li>NodeConsole -- a simple Console window that let you use fcp like telnet</li>
+<li>SnakeCharmer -- a tool that show/controls the global queue (dnd)</li>
+</ul>
+<h3 id="FreeThreewaystousethelibwithyourownjavaapp">
+<del>Free</del>Three ways to use the lib with your own (java)app</h3>
+<ol>
+<li>the non programming one:<br />
+add the jHyperocha jar to your apps classpath and set the right parameters adds knowlegde for fcp urls to your app
+<pre xml:space="preserve" class="wiki">       (1) fcp:KSK@gpl.txt
+       (2) fcp://127.0.0.1:9481/KSK@gpl.txt
+       (3a) fcp:KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
+       (3b) fcp://127.0.0.1:9481/KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
+</pre>mandatory params:
+<pre xml:space="preserve" class="wiki">      command line: -Djava.protocol.handler.pkgs=hyperocha.protocol
+      code: System.setProperty("java.protocol.handler.pkgs","hyperocha.protocol");
+</pre>optional params:<br />
+the server:port must be set if not given in url
+<pre xml:space="preserve" class="wiki">      command line: -Dhyperocha.freenet.fcp.serverport="127.0.0.1:9481"
+      code: System.setProperty("hyperocha.freenet.fcp.serverport", "127.0.0.1:9481");
+</pre>if you want trick around with persistance (not global) you need to set an explizit connection id, otherwise you will *not* find back your requests!
+<pre xml:space="preserve" class="wiki">      command line: -D"hyperocha.freenet.fcp.sessionid"="uniqueid"
+      code: System.setProperty("hyperocha.freenet.fcp.sessionid", "uniqueid");
+</pre>If set to "AUTO" or not given, an unique id will be generated
+</li>
+</ol>
+<ol start="2">
+<li>ease the fcp handling: <br />
+a sample instead of my terrible wording ;)
+</li>
+</ol>
+<pre xml:space="preserve" class="wiki">
+  FCPConnection conn = new FCPConnection("127.0.0.1", 9481);
+		
+  ClientPut cmd = new ClientPut();
+  cmd.setURI(INSERT_URI);
+  cmd.setAutoIdentifier("test");
+  cmd.setEnabled();
+  cmd.setVerbosityAll();
+  cmd.setPriority(PriorityClass.INTERACTIVE);
+  
+  conn.send(cmd);
+  		
+  boolean goon = true;
+  NodeMessage pmsg;
+
+  while (goon) {
+    pmsg = conn.readEndMessage();
+    			
+    if (pmsg.isMessageName("ProtocolError")) {
+	System.err.println(pmsg);
+	goon = false;
+    } else if (pmsg.isMessageName("PutSuccessful")) {
+        System.out.println(pmsg);
+	goon = false;
+    } else if (pmsg.isMessageName("PutFailed")) {
+        System.err.println(pmsg);
+	goon = false;
+    } else {
+        System.out.println(pmsg);
+    } 
+  }
+
+  conn.close(); 
+
+</pre>
+<ol start="3">
+<li> the high level api<br />
+</li>
+</ol>
+<blockquote>
+<blockquote>
+<p>
+3.1  blocking (synchron) mode<br />
+</p>
+<blockquote>
+<p>
+sess.runJob(job) does not return until the job is done<br />
+a sample instead of my terrible wording ;)
+</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre xml:space="preserve" class="wiki">  NodeConfig nc = new NodeConfig();
+  nc.setHost("192.168.1.1");
+  nc.setFCPPort(9481);
+  nc.setNodeName("freeze");
+  FCPSession sess = new FCPSession(nc);
+  sess.startSession();
+
+  MessageInsertJob job = new MessageInsertJob("KSK@test.data", new DirectFileEntry(null /* or filename if needed/wanted */, "mime/type", byte[] datatoinsert));
+  sess.runJob(kskJob);
+  if (job.isSuccess()) {
+    System.out.println("it's worth dancing");
+    return;
+  } 
+
+  // returns the last error nodemessage from node if any or null
+  job.getLastErrorMessage(); 
+
+  // returns the last exception if any or null
+  job.getLastError(); 
+}
+		
+</pre>
+<blockquote>
+<blockquote>
+<p>
+3.2 nonblocking (asynchron) mode [draft]<br />
+</p>
+</blockquote>
+</blockquote>
+<pre xml:space="preserve" class="wiki" >   sess.startJob(kskJob);
+</pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>
+this call returns imadently. you need to overwrite the on&lt;FCPevent&gt; to get notified for progress, results or errors
+</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>
+ 
+</p>
+<ol start="4">
+<li>Dispatcher [draft]
+</li>
+</ol>
+<ul>
+<li>job managment
+</li>
+<li>Load balancer (do not flood the node or start more jobs if the node is snoozing)
+</li>
+<li>support for multiple nodes
+</li>
+<li>support for multiple (virtual) networks
+(do not feed data for a real (hidden) darknet to opennet nodes for example)
+</li>
+</ul>
+<ol start="5">
+<li>[incorporate alien technologie]
+</li>
+</ol>
+<h3 id="getthesource">get the source</h3>
+<p>
+browse the repository<br />
+<a class="ext-link" href="/?_CHECKED_HTTP_=https://saces.servebbs.org:7999/trac/browser/trunk/jHyperocha">
+<span class="icon">https://saces.servebbs.org:7999/trac/browser/trunk/jHyperocha</span>
+</a>
+</p>
+<p>
+get it from repository<br />
+svn co https://saces.servebbs.org:7999/svn/trunk/jHyperocha
+</p>
+<h3 id="testinger">testinger</h3>
+<a class="ext-link" href="http://github.com/saces/jHyperocha"><span class="icon">browse source on github</span></a><br />
+<a href="downloads/jHyperocha.jar">get the jar</a><br />
+<a href="apidoc/index.html">apidoc</a><br />
+        
+        
+      </div>
+          
+    </div>
+<div class="footer">
+<hr />
+<p>
+Back to Index
+</p>
+</div>
+</body>
+</html>

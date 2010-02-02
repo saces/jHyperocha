@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="jHyperocha-base/src"/>
+	<classpathentry kind="src" path="jHyperocha-utils/src"/>
+	<classpathentry kind="src" path="jHyperocha-ant/src"/>
+	<classpathentry kind="src" path="jHyperocha-demos/src"/>
+	<classpathentry kind="src" path="jHyperocha-protocol/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="/usr/share/ant/lib/ant.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>

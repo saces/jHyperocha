@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ant fcp tasks for hyperocha                                       -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<project name="fcptasks">
+	
+	<!-- property name="jHyperocha.jar" value="dist/hyperocha.jar" / -->
+	<property name="jHyperocha.jar" value="build/" />
+	
+	<taskdef classname="hyperocha.ant.FileGet" name="fcpget" classpath="${jHyperocha.jar}" />
+	<taskdef classname="hyperocha.ant.DirPut" name="fcpdirput" classpath="${jHyperocha.jar}" />
+	<taskdef classname="hyperocha.ant.SitePut" name="fcpsiteput" classpath="${jHyperocha.jar}" />
+	<taskdef classname="hyperocha.ant.STPSitePut" name="stpsiteput" classpath="${jHyperocha.jar}" />
+
+</project>
