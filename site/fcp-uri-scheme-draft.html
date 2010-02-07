@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>FCP URI scheme - draft</title>
+	<style type="text/css">
+		@import url("schmucklos/schmucklos.css");
+	</style>
+</head>
+<body>
+	<div id="content" class="wiki">
+		<div class="wikipage searchable">
+			<h1 id="ThejHyperochafcplibrary">FCP URI scheme - draft</h1>
+			<h2 id="Whatisthis">What is this?</h2>
+			<p>This document describes the fcp uri scheme.<br />
+			This document is an early working draft and is subject to change.</p>
+
+
+<h3><a name="fcp_uri_scheme">FCP uri scheme</a></h3>
+<pre class="wiki">
+fcp://&lt;user&gt;:&lt;password&gt;@&lt;host&gt;:&lt;port&gt;/&lt;freenetkey&gt;;&lt;connectionparams&gt;?&lt;commandparams&gt;
+</pre>
+The fcp uri scheme looks like the http uri scheme. Username and password are defined for future use, but currently ignored.
+If the host or port is not given, the implementation should default to 127.0.0.1:9481<br />
+Parameter names should be case insensitive.<br />
+<ul>
+<li>connection parameters. have only effect if new connections are created
+<dl>
+<dt>FCPLog</dt><dd>if the parameter is set, any value turns logging on</em>)</dd>
+<dt>Timeout</dt><dd>set timeout to the amount of seconds</dd>
+</dl>
+</li>
+<li>command parameters
+<dl>
+<dt>Priority</dt><dd>the priority class for the request (0...6)</dd>
+<dt>MaxRetries</dt><dd>set the max retry count. -1 retries forever</dd>
+<dt>Type</dt><dd>overwrite the mime type</dd>
+<dt>MaxSize</dt><dd>the max size of the resulting data</dd>
+</dl>
+</li>
+</ul>
+Sample uris:
+<pre xml:space="preserve">
+fcp://127.0.0.1:9481/USK@fQGiK~CfI8zO4cuNyhPRLqYZ5TyGUme8lMiRnS9TCaU,E3S1MLoeeeEM45fDLdVV~n8PCr9pt6GMq0tuH4dRP7c,AQACAAE/freenethg/54/
+fcp:///USK@fQGiK~CfI8zO4cuNyhPRLqYZ5TyGUme8lMiRnS9TCaU,E3S1MLoeeeEM45fDLdVV~n8PCr9pt6GMq0tuH4dRP7c,AQACAAE/freenethg/54/
+fcp:USK@fQGiK~CfI8zO4cuNyhPRLqYZ5TyGUme8lMiRnS9TCaU,E3S1MLoeeeEM45fDLdVV~n8PCr9pt6GMq0tuH4dRP7c,AQACAAE/freenethg/54/ 
+fcp://127.0.0.1:9481/USK@fQGiK~CfI8zO4cuNyhPRLqYZ5TyGUme8lMiRnS9TCaU,E3S1MLoeeeEM45fDLdVV~n8PCr9pt6GMq0tuH4dRP7c,AQACAAE/freenethg/54/;FCPLog=true&amp;Timeout=300?Priority=1&amp;MaxRetries=5
+fcp://127.0.0.1:9481/USK@fQGiK~CfI8zO4cuNyhPRLqYZ5TyGUme8lMiRnS9TCaU,E3S1MLoeeeEM45fDLdVV~n8PCr9pt6GMq0tuH4dRP7c,AQACAAE/freenethg/54/?Priority=0&amp;MaxRetries=-1
+</pre>
+</div>
+</div>
+<div class="footer">
+<hr />
+<p>
+<a href="index.html">Back to Home.</a>
+</p>
+</div>
+</body>
+</html>
