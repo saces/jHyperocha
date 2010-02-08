@@ -18,7 +18,7 @@
 
 	<!--  General project properties -->
 	<property name="Name" value="hyperocha" />
-	<property name="jarName" value="hyperocha" />
+	<property name="jarName" value="jHyperocha" />
 
 	<!--  javac compiler options -->
 	<property name="debug" value="true" />
