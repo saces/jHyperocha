@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jHyperocha FCP protocol handler</title>
+	<style type="text/css">
+		@import url("schmucklos/schmucklos.css");
+	</style>
+</head>
+<body>
+	<div id="content" class="wiki">
+		<div class="wikipage searchable">
+			<h1 id="ThejHyperochafcplibrary">The jHyperocha FCP protocol handler(s)</h1>
+			<h2 id="Whatisthis">What is this?</h2>
+			<p>This document describes the FCP protocol handlers.<br />
+			This document is an early working draft and is subject to change.</p>
+
+<h3 id="eins">Overview</h3>
+<ol>
+<li>the non programming one:<br />
+add the jHyperocha jar to your apps classpath and set the right parameters adds knowlegde for fcp urls to your app
+<pre xml:space="preserve" class="wiki">       (1) fcp:KSK@gpl.txt
+       (2) fcp://127.0.0.1:9481/KSK@gpl.txt
+       (3a) fcp:KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
+       (3b) fcp://127.0.0.1:9481/KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
+</pre>mandatory params:
+<pre xml:space="preserve" class="wiki">      command line: -Djava.protocol.handler.pkgs=hyperocha.protocol
+      code: System.setProperty("java.protocol.handler.pkgs","hyperocha.protocol");
+</pre>optional params:<br />
+the server:port must be set if not given in url
+<pre xml:space="preserve" class="wiki">      command line: -Dhyperocha.freenet.fcp.serverport="127.0.0.1:9481"
+      code: System.setProperty("hyperocha.freenet.fcp.serverport", "127.0.0.1:9481");
+</pre>if you want trick around with persistence (not global) you need to set an explizit connection id, otherwise you will *not* find back your requests!
+<pre xml:space="preserve" class="wiki">      command line: -D"hyperocha.freenet.fcp.sessionid"="uniqueid"
+      code: System.setProperty("hyperocha.freenet.fcp.sessionid", "uniqueid");
+</pre>If set to "AUTO" or not given, an unique id will be generated
+</li>
+</ol>
+
+<p>
+ 
+</p>
+        
+        
+      </div>
+          
+    </div>
+<div class="footer">
+<hr />
+<p>
+<a href="index.html">Back to Home.</a>
+</p>
+</div>
+</body>
+</html>

@@ -19,22 +19,17 @@ to everything fcp related.</p>
 <del>Free</del>Three ways to use the lib with your own (java)app</h3>
 <ol>
 <li>the non programming one:<br />
-add the jHyperocha jar to your apps classpath and set the right parameters adds knowlegde for fcp urls to your app
-<pre xml:space="preserve" class="wiki">       (1) fcp:KSK@gpl.txt
-       (2) fcp://127.0.0.1:9481/KSK@gpl.txt
-       (3a) fcp:KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
-       (3b) fcp://127.0.0.1:9481/KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
-</pre>mandatory params:
-<pre xml:space="preserve" class="wiki">      command line: -Djava.protocol.handler.pkgs=hyperocha.protocol
-      code: System.setProperty("java.protocol.handler.pkgs","hyperocha.protocol");
-</pre>optional params:<br />
-the server:port must be set if not given in url
-<pre xml:space="preserve" class="wiki">      command line: -Dhyperocha.freenet.fcp.serverport="127.0.0.1:9481"
-      code: System.setProperty("hyperocha.freenet.fcp.serverport", "127.0.0.1:9481");
-</pre>if you want trick around with persistance (not global) you need to set an explizit connection id, otherwise you will *not* find back your requests!
-<pre xml:space="preserve" class="wiki">      command line: -D"hyperocha.freenet.fcp.sessionid"="uniqueid"
-      code: System.setProperty("hyperocha.freenet.fcp.sessionid", "uniqueid");
-</pre>If set to "AUTO" or not given, an unique id will be generated
+add the jHyperocha.jar to your application classpath and set the right parameters to add support for the FCP protocol to your application.
+<pre xml:space="preserve" class="wiki">
+java -cp /path/to/jHyperocha.jar -Djava.protocol.handler.pkgs=hyperocha.protocol -jar application.jar
+</pre>
+Now your application should be able to understand URLs like
+<pre xml:space="preserve" class="wiki">
+fcp://127.0.0.1:9481/KSK@gpl.txt
+</pre>
+<a href="java-protocol-handler-draft.html">read moar</a><br />
+<em><b>Important notice:</b></em><br />
+This works only if the application uses the default URLStreamHandlerFactory or when the custom URLStreamHandlerFactory respects the 'java.protocol.handler.pkgs' property.
 </li>
 </ol>
 <ol start="2">
@@ -172,10 +167,13 @@ get it from repository: <code>git clone git://github.com/saces/jHyperocha.git</c
 </a>
 </p>
 <h3 id="testinger">jHyperocha on Freenet</h3>
+<h5>Downloads</h5>
 <a href="downloads/jHyperocha.jar">get the jar</a><br />
 <a href="downloads/jHyperocha-src.zip">get the source zip</a><br />
-<a href="apidoc/index.html">read the apidoc</a><br />
+<h5>Documentation</h5>
+<a href="apidoc/index.html">read the apidoc</a> (javadoc)<br />
 <a href="fcp-uri-scheme-draft.html">FCP URI scheme (draft)</a><br />
+<a href="java-protocol-handler-draft.html">FCP protocol handler (draft)</a><br />
         
         
       </div>
