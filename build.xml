@@ -106,10 +106,6 @@ Build log  : ${logfilename}</echo>
 			<fileset dir="${build.dir}">
 				<include name="**/*.class" />
 			</fileset>
-			<fileset dir="${src.dir}">
-				<include name="**/*.properties" />
-				<include name="**/*.java" />
-			</fileset>
 		</jar>
 	</target>
 
