@@ -150,7 +150,11 @@ public class STPSitePutJob extends SitePutJob {
 		ucmd.addPluginParam("Command", "SetInsertURI");
 		ucmd.addPluginParam("Identifier", id);
 		ucmd.addPluginParam("SessionID", getJobID());
-		ucmd.addPluginParam("InsertURI", "CHK@");
+		String k = getInsertKey();
+		if (k.endsWith("/")) {
+			k = k.substring(0, k.length()-1);
+		}
+		ucmd.addPluginParam("InsertURI", k);
 		jobRunner.send(ucmd);
 		waitStep(id);
 		if (isFinished()) return;
