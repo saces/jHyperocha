@@ -168,7 +168,7 @@ Build log  : ${logfilename}</echo>
 		<zip destfile="${release.dir}/${distZipNamePrefix}${revision}-source.zip" filesonly="true">
 			<zipfileset dir="." prefix="hyperocha" excludes=".* **/CVS/* ${lib.dir}/**/*.jar" includes="${src.dir}/**/* ${bin.dir}/**/* ${res.dir}/**/*
     						  ${lib.dir}/**/* ${specs.dir}/**/* ${helpsrc.dir}/**/*
-                              build.xml" />
+				jHyperocha-*/**/* *.xml" />
 		</zip>
 
 		<echo>

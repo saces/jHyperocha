@@ -4,13 +4,17 @@
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 <project name="dogfood" default="main" basedir=".">
 
+	<property file="dogfood.properties" />
+
 	<import file="./build.xml"/>
 	<import file="./fcptasks.xml"/>
 
 	<property name="fcp.host" value="127.0.0.1" />
-	<property name="fcp.port" value="9482" />
+	<property name="fcp.port" value="9481" />
 	<property name="fcp.timeout" value="300000" />
 	<property name="fcp.log" value="true" />
+
+	<property name="inserturi" value="${dogfooduri.write}/${dogfooduri.docname}/${dogfooduri.edition}" />
 
 	<target name="downloaddemo">
 		<delete quiet="true" file="dltest.txt" />
@@ -37,6 +41,7 @@
 			<diskdir name="" path="site" />
 			<diskdir name="apidoc/" path="apidocs" />
 			<fileitem name="downloads/jHyperocha.jar" path="dist/hyperocha.jar" />
+			<fileitem name="downloads/jHyperocha-src.zip" path="dist/jHyperocha-src.zip" />
 		</fcpsiteput>
 		<echo message="Result? ${testinsert.uri}" />
 	</target>
@@ -44,12 +49,13 @@
 	<target name="stpsitedemo">
 		<stpsiteput fcphost="${fcp.host}" fcpport="${fcp.port}"
 				fcptimeout="${fcp.timeout}" fcplog="${fcp.log}"
-				uri="CHK@"
+				uri="${inserturi}"
 				indexname="index.html" 
 				propertyname="testinsert.uri" >
 			<diskdir name="" path="site" />
 			<diskdir name="apidoc/" path="apidocs" />
 			<fileitem name="downloads/jHyperocha.jar" path="dist/hyperocha.jar" />
+			<fileitem name="downloads/jHyperocha-src.zip" path="dist/jHyperocha-src.zip" />
 		</stpsiteput>
 		<echo message="Result? ${testinsert.uri}" />
 	</target>
