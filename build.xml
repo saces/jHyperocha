@@ -99,9 +99,14 @@ Build log  : ${logfilename}</echo>
 		<!--  Build the jar file.  -->
 		<jar jarfile="${dist.dir}/${jarName}.jar">
 			<manifest>
-				<attribute name="Class-Path" value=". hyperocha.jar" />
+				<!-- attribute name="Class-Path" value=". hyperocha.jar" / -->
 				<attribute name="Main-Class" value="hyperocha.freenet.samples.SampleChooser" />
 				<attribute name="Specification-Version" value="${revision}" />
+				<attribute name="Bundle-ManifestVersion" value="2" />
+				<attribute name="Bundle-Name" value="jHyperocha" />
+				<attribute name="Bundle-SymbolicName" value="org.foo.example.Example" />
+				<attribute name="Bundle-Version" value="0.0.2" />
+				<attribute name="Export-Package" value="hyperocha.api" />
 			</manifest>
 			<fileset dir="${build.dir}">
 				<include name="**/*.class" />
