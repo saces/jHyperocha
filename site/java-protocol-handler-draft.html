@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:html="http://www.w3.org/1999/xhtml">
+<head>
+<title>jHyperocha &ndash; FCPlib</title>
+<style type="text/css">@import url(schmucklos/schmucklos.css);</style>
+</head>
+<body>
+<div id="content" class="wiki">
+<div class="wikipage searchable" xml:space="preserve">
+<h1 id="ThejHyperochafcplibrary">Java FCP protocol handler - draft</h1>
+<h2 id="Whatisthis">What is this?</h2>
+<p>
+This document describes the fcp protocol handler.<br />
+This document is an early working draft and is subject to change.
+</p>
+<p>
+add the jHyperocha jar to your apps classpath and set the right parameters adds knowlegde for fcp urls to your app
+<pre class="wiki" xml:space="preserve">       (1) fcp:KSK@gpl.txt
+       (2) fcp://127.0.0.1:9481/KSK@gpl.txt
+       (3a) fcp:KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
+       (3b) fcp://127.0.0.1:9481/KSK@gpl.txt?MaxRetries=-1&amp;Priority=4
+</pre>mandatory params:
+<pre class="wiki" xml:space="preserve">      command line: -Djava.protocol.handler.pkgs=hyperocha.protocol
+      code: System.setProperty("java.protocol.handler.pkgs","hyperocha.protocol");
+</pre>optional params:<br/>
+the server:port must be set if not given in url
+<pre class="wiki" xml:space="preserve">      command line: -Dhyperocha.freenet.fcp.serverport="127.0.0.1:9481"
+      code: System.setProperty("hyperocha.freenet.fcp.serverport", "127.0.0.1:9481");
+</pre>if you want trick around with persistance (not global) you need to set an explizit connection id, otherwise you will *not* find back your requests!
+<pre class="wiki" xml:space="preserve">      command line: -D"hyperocha.freenet.fcp.sessionid"="uniqueid"
+      code: System.setProperty("hyperocha.freenet.fcp.sessionid", "uniqueid");
+</pre>If set to "AUTO" or not given, an unique id will be generated
+
+      </div>
+
+    </div>
+<div class="footer">
+<hr/>
+<p><a href="index.html">Back to Index</a></p>
+</div>
+</body>
+</html>
